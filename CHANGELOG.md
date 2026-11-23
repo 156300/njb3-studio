@@ -20,6 +20,11 @@
 ### 打包
 - 绿色包更名 `njb3-studio-0.1.0-261123-win-x64.zip`，内含修复后的 bat / ps1 / make_cat.exe。
 
+### 文档（发布后勘误，不改变程序与 Release 附件）
+- 更正 libnjb 死链 `github.com/libnjb/libnjb` → SourceForge 项目页/官网，注明 2.2.7 最终版与 BSD 许可。
+- libusb 补精确版本 1.0.30；补充 libusb-win32（0.1 体系）与本项目 WinUSB/libusb 1.0 路线的区别。
+- 新增 `编者的话.txt`（作者自述、使用建议与致谢）与 `docs/依赖关系核实报告.md`。
+
 ## [v46] — 2026-11-22
 
 ### 新增

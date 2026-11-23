@@ -6,7 +6,7 @@
 |---|---|---|---|
 | Python 3.13 | 运行时 / 开发 | PSF License | https://www.python.org/ |
 | pyusb | USB 设备访问 | BSD-3-Clause | https://github.com/pyusb/pyusb |
-| libusb-1.0 | USB 后端 DLL | LGPL-2.1-or-later | https://libusb.info/ |
+| libusb 1.0.30 | USB 后端 DLL（由 libusb-package 内置打包，2026-05-17 发布） | LGPL-2.1-or-later | https://libusb.info/ |
 | libusb-package | 内置 libusb DLL 的 Python 包 | LGPL-2.1-or-later（上游） | https://pypi.org/project/libusb-package/ |
 | PyInstaller | 绿色单文件打包 | GPL-2.0-or-later（引导程序有例外条款） | https://pyinstaller.org/ |
 | Pillow | 图像处理 | HPND | https://python-pillow.org/ |
@@ -16,7 +16,7 @@
 
 ## 参考实现
 
-- **libnjb**（https://github.com/libnjb/libnjb）：PDE 协议与曲库结构的开源参考实现。
+- **libnjb 2.2.7 / BSD**（https://sourceforge.net/projects/libnjb/ ，官网 https://libnjb.sourceforge.net/ ）：PDE 协议与曲库结构的开源参考实现，最终版发布于 2011-06-25。
   本项目**没有复制其代码**，仅依据公开协议文档与行为观察自研实现。
 - **libwdi / Zadig**（https://github.com/pbatard/libwdi）：CAT 签名算法的参考。
   `src/scripts/make_cat.py` 是独立用 Python `ctypes` 重写的实现。

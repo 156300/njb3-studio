@@ -60,7 +60,9 @@ python -m PyInstaller src/ui_next/njb3_studio.spec --distpath dist --workpath bu
 
 | 文档 | 内容 |
 |---|---|
+| [编者的话.txt](编者的话.txt) | 作者自述：项目缘起、制作过程、使用建议与致谢 |
 | [docs/使用说明.md](docs/使用说明.md) | 界面、按钮、操作流程与常见问题 |
+| [docs/依赖关系核实报告.md](docs/依赖关系核实报告.md) | libnjb / libusb 链接与版本核实记录 |
 | [docs/驱动安装与排错.md](docs/驱动安装与排错.md) | WinUSB 驱动安装、签名证书、错误码与排查 |
 | [docs/USB接口指令清单.md](docs/USB接口指令清单.md) | 已确认/推测的 PDE 指令码、帧格式与读写语义 |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 代码结构、模块职责与关键设计决策 |
@@ -82,6 +84,7 @@ python -m PyInstaller src/ui_next/njb3_studio.spec --distpath dist --workpath bu
 
 ```
 .
+├── 编者的话.txt            作者自述与使用建议
 ├── releases/              绿色发布包（zip + 单文件 exe）
 ├── src/
 │   ├── ui_next/           新版工作台 UI（StudioApp / Dock / Theme / 打包配置）
@@ -115,7 +118,7 @@ python -m PyInstaller src/ui_next/njb3_studio.spec --distpath dist --workpath bu
 
 ## 致谢
 
-- [libnjb](https://github.com/libnjb/libnjb)：PDE 协议的开源参考实现，本项目的协议理解基础。
+- [libnjb 2.2.7 / BSD](https://sourceforge.net/projects/libnjb/)：PDE 协议的开源参考实现（官网 https://libnjb.sourceforge.net/ ），本项目的协议理解基础。
 - [pyusb](https://github.com/pyusb/pyusb) / [libusb](https://libusb.info/)：用户态 USB 访问。
 - [PyInstaller](https://pyinstaller.org/)：单文件绿色打包。
 - 以及所有在真机联调中提供反馈与耐心等待的用户。
