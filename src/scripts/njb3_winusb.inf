@@ -1,0 +1,49 @@
+;
+; njb3_winusb.inf
+; Bind Creative Nomad Jukebox 3 (USB VID_041E PID_4101) to the
+; Microsoft inbox WinUSB driver (winusb.sys) - WHQL signed, built into
+; Windows 8/10/11. No third-party kernel driver required.
+;
+; This lets a user-mode application (our njb3_tool.exe / pyusb) talk to
+; the device over the PDE protocol without Creative's proprietary
+; ctpdusb.sys, which otherwise monopolises the endpoint and causes the
+; 2006-era CMS5 installer to fail its product-detection check.
+;
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = USBDevice
+ClassGuid   = {88BAE032-5A81-49F0-BC3D-A4FF138216D6}
+Provider    = %PROVIDER%
+CatalogFile = njb3_winusb.cat
+DriverVer   = 11/19/2026,1.0.0.0
+
+[Manufacturer]
+%PROVIDER%  = NJB3, NTamd64, NTx86
+
+; ---------- AMD64 ----------
+[NJB3.NTamd64]
+%DEVICE_NAME% = WinUSB_Install, USB\VID_041E&PID_4101
+
+; ---------- x86 ----------
+[NJB3.NTx86]
+%DEVICE_NAME% = WinUSB_Install, USB\VID_041E&PID_4101
+
+; ---------- WinUSB install section ----------
+[WinUSB_Install]
+Include   = winusb.inf
+Needs     = WINUSB.NT
+
+[WinUSB_Install.Services]
+Include   = winusb.inf
+Needs     = WINUSB.NT.Services
+
+[WinUSB_Install.HW]
+AddReg    = WinUSB_Install.HW.AddReg
+
+[WinUSB_Install.HW.AddReg]
+; Interface GUID used by libusb/pyusb to locate the device.
+HKR,,DeviceInterfaceGUIDs,0x10000,"{F72B5F5C-6C1E-4C6E-9A4B-5C1E2D3F4A6B}"
+
+[Strings]
+PROVIDER    = "NJB3-Toolbox"
+DEVICE_NAME = "Nomad Jukebox 3 (WinUSB)"

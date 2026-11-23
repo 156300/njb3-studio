@@ -1,0 +1,134 @@
+{
+  "summaries": [
+    {
+      "stage": "ping",
+      "sec": 0.16,
+      "bulk_reads": 1,
+      "error": null,
+      "count": 7
+    },
+    {
+      "stage": "disk_usage",
+      "sec": 0.003,
+      "bulk_reads": 1,
+      "error": null,
+      "count": 5
+    },
+    {
+      "stage": "battery",
+      "sec": 0.003,
+      "bulk_reads": 1,
+      "error": null,
+      "count": 6
+    },
+    {
+      "stage": "volume",
+      "sec": 0.003,
+      "bulk_reads": 1,
+      "error": null,
+      "count": 3
+    },
+    {
+      "stage": "eax",
+      "sec": 0.003,
+      "bulk_reads": 1,
+      "error": null
+    },
+    {
+      "stage": "list_tracks(extended)",
+      "sec": 56.827,
+      "bulk_reads": 28,
+      "error": null,
+      "count": 4827
+    },
+    {
+      "stage": "list_playlists",
+      "sec": 0.174,
+      "bulk_reads": 1,
+      "error": null,
+      "count": 9
+    },
+    {
+      "stage": "playlist_members#4810478 欧美流行",
+      "sec": 0.451,
+      "bulk_reads": 2,
+      "error": null,
+      "count": 426
+    },
+    {
+      "stage": "playlist_members#3594041 告示牌流行",
+      "sec": 1.588,
+      "bulk_reads": 11,
+      "error": null,
+      "count": 2646
+    },
+    {
+      "stage": "playlist_members#3616804 杰克逊",
+      "sec": 0.4,
+      "bulk_reads": 2,
+      "error": null,
+      "count": 421
+    },
+    {
+      "stage": "playlist_members#3616818 中文经典",
+      "sec": 0.656,
+      "bulk_reads": 3,
+      "error": null,
+      "count": 658
+    },
+    {
+      "stage": "playlist_members#7232358 试音碟",
+      "sec": 0.081,
+      "bulk_reads": 1,
+      "error": null,
+      "count": 78
+    },
+    {
+      "stage": "playlist_members#4810471 舒缓音乐",
+      "sec": 0.353,
+      "bulk_reads": 2,
+      "error": null,
+      "count": 386
+    },
+    {
+      "stage": "playlist_members#4808008 JFLA",
+      "sec": 0.207,
+      "bulk_reads": 1,
+      "error": null,
+      "count": 177
+    },
+    {
+      "stage": "playlist_members#7229158 DJ 高低音 wav",
+      "sec": 0.029,
+      "bulk_reads": 1,
+      "error": null,
+      "count": 18
+    },
+    {
+      "stage": "playlist_members#7256515 22",
+      "sec": 0.015,
+      "bulk_reads": 1,
+      "error": null,
+      "count": 5
+    },
+    {
+      "stage": "read_current_queue",
+      "sec": 0.037,
+      "bulk_reads": 10,
+      "error": "PDEError: 播放队列回读未得到有效曲目 ID（详见诊断信息 queue_diag）"
+    }
+  ],
+  "records": [
+    {
+      "kind": "ctrl",
+      "stage": "init",
+      "sec": 0.0004,
+      "size": null,
+      "bytes": null,
+      "args": "(253,)"
+    },
+    {
+      "kind": "write",
+      "stage": "ping",
+      "sec": 0.0002,
+      "size": 

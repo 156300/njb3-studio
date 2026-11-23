@@ -1,0 +1,29 @@
+文件夹 → 播放列表 映射示例
+============================
+
+用法（见 docs/02 路线 B）：
+    python scripts\njb3_transfer.py folder-playlists --root D:\music --depth 1 --dry-run
+    python scripts\njb3_transfer.py folder-playlists --root D:\music --depth 1
+
+规则：
+  --root 下的每个子文件夹 = 设备上一个同名播放列表。
+  --depth 1 表示只看第一层子文件夹；改成 2 可包含更深层级。
+  每个文件夹内的 mp3/wav/wma 会按 ID3 标题加入对应播放列表。
+
+推荐目录结构：
+  D:\music\
+    ├── 通勤\            -> 设备播放列表 "通勤"
+    │    01-song.mp3
+    │    02-song.mp3
+    ├── 健身\            -> 设备播放列表 "健身"
+    │    ...
+    └── 睡前\            -> 设备播放列表 "睡前"
+          ...
+
+注意（重要）：
+  这是通过 PDE 协议把播放列表【写进设备数据库】实现的，
+  不是把 m3u 文件拷到盘里让机器读。后者机器不识别（见 docs/01、docs/03）。
+
+m3u 用法：
+    python scripts\njb3_transfer.py m3u-import --file roadtrip.m3u --playlist "公路旅行"
+  m3u 里的路径应指向本地存在的音频文件；--upload-missing 可一并上传。

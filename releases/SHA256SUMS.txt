@@ -1,0 +1,2 @@
+cc3425ace4332dbbe004ff028f50e922e81f4e5e4551765b216fb2b3c24af064  njb3-studio-0.1.0-261123-win-x64.zip
+2bdb9bfc07c4cb7bf5571da3e07e5d3c477eac1a1d1dc5b388015cb45186f1ef  njb3_studio.exe

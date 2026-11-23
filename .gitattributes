@@ -1,0 +1,18 @@
+# Windows 批处理必须是 CRLF + GBK，否则 cmd.exe 无法正确解析多行块
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+
+# Python / 文档统一 LF，避免跨平台差异
+*.py  text eol=lf
+*.md  text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.m3u text eol=lf
+
+# 二进制文件不做任何换行符转换
+*.exe binary
+*.dll binary
+*.zip binary
+*.png binary
+*.cat binary

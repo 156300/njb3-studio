@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 构建产物（releases/ 内的正式发布包除外）
+build/
+build_*/
+dist/
+dist_v*/
+*.pkg
+*.pyz
+
+# 运行时生成的缓存 / 配置（含设备信息或本机偏好，不入库）
+njb3_library_cache.json
+play_queue_cache.json
+gui_skin.json
+gui_layout.json
+studio_dock.json
+studio_theme.json
+_test_library_cache.json
+*.log
+安装日志.txt
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+*.tmp
+
+# 工作区私有数据
+.workbuddy/
+*.code-workspace
+
+# 不公开的第三方专有素材
+drivers/creative_*/
+evidence/
+pyqt_ui/
+*_backup.py
+make_cat.exe
+zadig.exe
+7za.exe
