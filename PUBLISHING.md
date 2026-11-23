@@ -53,7 +53,7 @@ git push origin main --tags
 ## 4. 发布前自检（每次都要做）
 
 ```bash
-# 回归测试：应显示 19 套全过
+# 回归测试：应显示 21 套全过
 for f in tests/test_*.py; do python "$f" >/dev/null || echo "FAIL $f"; done
 
 # 隐私扫描：应无输出

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""v0.1.0-261123：验证版本号常量与状态栏显示。"""
+"""v0.1.1-261123：验证版本号常量与状态栏显示。"""
 import sys, os, time
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
@@ -19,7 +19,7 @@ def chk(name, cond):
         bad += 1; print(f"  [FAIL] {name}")
 
 print("=== 1. 版本常量 ===")
-chk(f"APP_VERSION = 0.1.0-261123", studio.APP_VERSION == "0.1.0-261123")
+chk(f"APP_VERSION = 0.1.1-261123", studio.APP_VERSION == "0.1.1-261123")
 chk(f"APP_BUILD_TAG = 156300by[AI]", studio.APP_BUILD_TAG == "156300by[AI]")
 
 print("=== 2. 状态栏版本号 Label ===")

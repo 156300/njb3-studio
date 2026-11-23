@@ -22,13 +22,13 @@ NJB3 不是 U 盘，它使用私有 PDE 协议与主机通信。原厂 CMS5 在 
 - **曲库**：4827+ 首曲目的分批读取、搜索、排序、单元格暂存与批量同步；按设备序号缓存慢字段，连接快读约 17 倍。
 - **播放控制**：设备播放队列读取与拖拽排序、音量/播放模式、上一曲/下一曲、软件播控模式与曲终自动停止。
 - **界面**：三个整页工作台（传输 / 播控 / 控制）、可停靠模块化布局、深浅双主题与系统主题跟随。
-- **可测试**：19 套回归测试、真机诊断脚本一并开源。
+- **可测试**：21 套回归测试、真机诊断脚本一并开源。
 
 ---
 
 ## 快速开始（绿色版）
 
-1. 从仓库 [releases/](releases/) 目录（或 GitHub Releases 页面）下载 `njb3-studio-0.1.0-261123-win-x64.zip`，解压到任意目录。
+1. 从仓库 [releases/](releases/) 目录（或 GitHub Releases 页面）下载 `njb3-studio-0.1.1-261123-win-x64.zip`，解压到任意目录。
 2. 双击 `启动 NJB3 Studio.bat`。首次使用需以管理员身份安装一次 WinUSB 驱动：
    右键 `安装 WinUSB 驱动.bat` → **以管理员身份运行**，按提示完成后重新插拔设备。
 3. 连接 NJB3，软件会自动识别设备并加载曲库。
@@ -90,7 +90,7 @@ python -m PyInstaller src/ui_next/njb3_studio.spec --distpath dist --workpath bu
 │   ├── ui_next/           新版工作台 UI（StudioApp / Dock / Theme / 打包配置）
 │   ├── scripts/           业务与协议源码（GUI / PDE / 驱动脚本）
 │   └── runtime/           libusb-1.0.dll（LGPL-2.1，随构建打包）
-├── tests/                 19 套回归测试
+├── tests/                 21 套回归测试
 ├── tools/diagnostics/     真机只读诊断脚本（播放时序、传输耗时、缓存验证）
 ├── examples/playlists/    m3u 与文件夹结构示例
 └── docs/                  文档与开发学习过程

@@ -150,7 +150,7 @@ LIB_CACHE_VERSION = 1
 
 # 版本号：主版本.次版本.修订版本-编译日期(YYMMDD)
 #   0 = 测试版；1 = 第一版；0 = 初版（后续修正功能递增第三位）；261123 = 2026-11-23 编译
-APP_VERSION = "0.1.0-261123"
+APP_VERSION = "0.1.1-261123"
 APP_BUILD_TAG = "156300by[AI]"
 
 
@@ -1033,6 +1033,45 @@ class StudioApp(base.App):
     PL_SONG_COLS = ("num", "title", "artist", "album", "genre", "id")
     PL_SONG_HEADS = ("#", "标题", "艺人", "专辑", "流派", "ID")
     PL_SONG_WIDTHS = (34, 170, 110, 120, 90, 60)
+
+    def _ensure_pl_songs_vscrollbar(self, tree):
+        """v0.1.1：恢复播控页“清单内的歌曲”的垂直滚动条。
+
+        v39 起该树扩到 6 列，列宽总和 584px 大于左栏宽度；原布局是
+        「树先 pack、滚动条后 pack」，pack 优先满足树的请求宽度，把滚动条
+        压成 1x1 且不再映射，表现为“上下滑动条没了”。
+        改用 grid：树占可伸缩列，滚动条独占固定宽列，任何栏宽下都可见。
+        """
+        if tree is None or not tree.winfo_exists():
+            return None
+        pit = tree.master
+        sb = None
+        for w in pit.winfo_children():
+            if isinstance(w, ttk.Scrollbar) and str(w.cget("orient")) == "vertical":
+                sb = w
+                break
+        if sb is None:
+            sb = ttk.Scrollbar(pit, orient="vertical", command=tree.yview)
+        try:
+            tree.configure(yscrollcommand=sb.set)
+        except Exception:
+            pass
+        # pack / grid 不能在同一父容器混用：先清除两种布局再统一 grid
+        for w in (tree, sb):
+            for forget in (getattr(w, "pack_forget", None),
+                           getattr(w, "grid_forget", None)):
+                if forget is None:
+                    continue
+                try:
+                    forget()
+                except Exception:
+                    pass
+        pit.rowconfigure(0, weight=1)
+        pit.columnconfigure(0, weight=1)
+        pit.columnconfigure(1, weight=0)
+        tree.grid(row=0, column=0, sticky="nsew")
+        sb.grid(row=0, column=1, sticky="ns")
+        return sb
 
     def _upgrade_pl_songs_columns(self, tree):
         """给“清单内的歌曲”树加 专辑/流派 两列，并让表头可点击排序。"""
@@ -2613,6 +2652,8 @@ class StudioApp(base.App):
 
         # v39：播控页“清单内的歌曲”加 专辑/流派 两列 + 表头排序。
         self._upgrade_pl_songs_columns(getattr(self, "pl_songs", None))
+        # v0.1.1：修复 6 列扩宽后垂直滚动条被 pack 挤成 0 宽的问题。
+        self._ensure_pl_songs_vscrollbar(getattr(self, "pl_songs", None))
 
         # v38：播控左右侧折叠后 sash 钉死为 14px，不能拖动放大。
         pr = getattr(self, "pc_root", None)
