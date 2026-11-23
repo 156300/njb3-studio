@@ -1035,21 +1035,27 @@ class StudioApp(base.App):
     PL_SONG_WIDTHS = (34, 170, 110, 120, 90, 60)
 
     def _ensure_pl_songs_vscrollbar(self, tree):
-        """v0.1.1：恢复播控页“清单内的歌曲”的垂直滚动条。
+        """v0.1.1：恢复“清单内的歌曲”的垂直滚动条（播控页 + 传输页）。
 
-        v39 起该树扩到 6 列，列宽总和 584px 大于左栏宽度；原布局是
+        v39 起该树扩到 6 列，列宽总和 584px 大于侧栏宽度；原布局是
         「树先 pack、滚动条后 pack」，pack 优先满足树的请求宽度，把滚动条
         压成 1x1 且不再映射，表现为“上下滑动条没了”。
         改用 grid：树占可伸缩列，滚动条独占固定宽列，任何栏宽下都可见。
+        传输页底部还有 移除已选/清空清单 按钮条，它也必须走同一个 grid，
+        否则 pack 重排会再次把滚动条挤没（v0.1.1 初次修复遗漏这一页）。
         """
         if tree is None or not tree.winfo_exists():
             return None
         pit = tree.master
         sb = None
+        bar = None
         for w in pit.winfo_children():
-            if isinstance(w, ttk.Scrollbar) and str(w.cget("orient")) == "vertical":
+            if (sb is None and isinstance(w, ttk.Scrollbar)
+                    and str(w.cget("orient")) == "vertical"):
                 sb = w
-                break
+            elif bar is None and isinstance(w, ttk.Frame) and getattr(
+                    w, "_pl_song_btnbar", False):
+                bar = w
         if sb is None:
             sb = ttk.Scrollbar(pit, orient="vertical", command=tree.yview)
         try:
@@ -1057,7 +1063,9 @@ class StudioApp(base.App):
         except Exception:
             pass
         # pack / grid 不能在同一父容器混用：先清除两种布局再统一 grid
-        for w in (tree, sb):
+        for w in (tree, sb, bar):
+            if w is None:
+                continue
             for forget in (getattr(w, "pack_forget", None),
                            getattr(w, "grid_forget", None)):
                 if forget is None:
@@ -1067,10 +1075,13 @@ class StudioApp(base.App):
                 except Exception:
                     pass
         pit.rowconfigure(0, weight=1)
+        pit.rowconfigure(1, weight=0)
         pit.columnconfigure(0, weight=1)
         pit.columnconfigure(1, weight=0)
         tree.grid(row=0, column=0, sticky="nsew")
         sb.grid(row=0, column=1, sticky="ns")
+        if bar is not None:
+            bar.grid(row=1, column=0, columnspan=2, sticky="ew", pady=(3, 2))
         return sb
 
     def _upgrade_pl_songs_columns(self, tree):
@@ -1211,22 +1222,12 @@ class StudioApp(base.App):
                    width=9).pack(side="left", padx=(0, 4))
         ttk.Button(bar, text="清空清单", command=self.action_pl_clear,
                    width=9).pack(side="left")
-        # 先让按钮条占据底部一行，再让树/滚动条重排填充剩余空间；
-        # 否则树 expand=True 先占位会把按钮条挤成 0 高。
+        # v0.1.1 修订：按钮条、树、垂直滚动条统一交给 _ensure_pl_songs_vscrollbar
+        # 用 grid 排版（树+滚动条一行，按钮条独占底部一行）。这里若再用 pack
+        # 重排，会把滚动条重新挤成 1x1，导致传输页又看不到上下滑动条。
         if tree is None:
             tree = getattr(self, "pl_songs", None)
-        sb = None
-        for w in pit.winfo_children():
-            if isinstance(w, ttk.Scrollbar):
-                sb = w
-                break
-        bar.pack(side="bottom", fill="x", pady=(3, 2))
-        if tree is not None:
-            tree.pack_forget()
-            tree.pack(side="left", fill="both", expand=True)
-        if sb is not None:
-            sb.pack_forget()
-            sb.pack(side="right", fill="y")
+        self._ensure_pl_songs_vscrollbar(tree)
 
     def _decode_owner_name(self, raw):
         """按 libnjb njb3_read_string_frame 解析 0x0113 机主名。
@@ -2325,6 +2326,8 @@ class StudioApp(base.App):
         super()._build_machine_tab(parent)
         # v39：传输页“清单内的歌曲”加 专辑/流派 两列 + 表头排序。
         self._upgrade_pl_songs_columns(getattr(self, "pl_songs2", None))
+        # v0.1.1 修订：两页的树都要恢复垂直滚动条；此前只对播控页调用过。
+        self._ensure_pl_songs_vscrollbar(getattr(self, "pl_songs2", None))
         p = self.pal
         left = self.lib_tree2.master.master
         lf2 = self.lib_tree2.master
